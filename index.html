@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Para mi amor, Guada</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- ===== Íconos propios (SVG) usados en todo el proyecto ===== -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <defs>
+            <symbol id="i-heart" viewBox="0 0 24 24">
+                <path fill="currentColor"
+                    d="M12 21.2C5.4 16.6 2 13 2 8.9 2 6.2 4 4.2 6.6 4.2c1.9 0 3.7 1 5.4 3.1 1.7-2.1 3.5-3.1 5.4-3.1C20 4.2 22 6.2 22 8.9c0 4.1-3.4 7.7-10 12.3z" />
+            </symbol>
+            <symbol id="i-heart-line" viewBox="0 0 24 24">
+                <path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"
+                    d="M12 21.2C5.4 16.6 2 13 2 8.9 2 6.2 4 4.2 6.6 4.2c1.9 0 3.7 1 5.4 3.1 1.7-2.1 3.5-3.1 5.4-3.1C20 4.2 22 6.2 22 8.9c0 4.1-3.4 7.7-10 12.3z" />
+            </symbol>
+            <symbol id="i-spark" viewBox="0 0 24 24">
+                <path fill="currentColor"
+                    d="M12 1.5c.7 5.6 3 8.9 10.5 10.5-7.5 1.6-9.8 4.9-10.5 10.5-.7-5.6-3-8.9-10.5-10.5C9 10.4 11.3 7.1 12 1.5z" />
+            </symbol>
+            <symbol id="i-letter" viewBox="0 0 32 32">
+                <rect x="3" y="7" width="26" height="18" rx="2.5" fill="none" stroke="currentColor"
+                    stroke-width="1.7" />
+                <path d="M3.5 8.5L16 18l12.5-9.5" fill="none" stroke="currentColor" stroke-width="1.7"
+                    stroke-linejoin="round" />
+                <path fill="#c4003f"
+                    d="M16 24.6c-3.3-2.3-5-4.1-5-6.1 0-1.4 1-2.4 2.3-2.4.9 0 1.8.5 2.7 1.5.9-1 1.8-1.5 2.7-1.5 1.3 0 2.3 1 2.3 2.4 0 2-1.7 3.8-5 6.1z" />
+            </symbol>
+            <symbol id="i-note" viewBox="0 0 24 24">
+                <path fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9 17.5V5.5l11-2v12M9 17.5a2.8 2.8 0 11-5.6 0 2.8 2.8 0 015.6 0zM20 15.5a2.8 2.8 0 11-5.6 0 2.8 2.8 0 015.6 0z" />
+            </symbol>
+            <symbol id="i-pause" viewBox="0 0 24 24">
+                <rect x="6" y="5" width="4" height="14" rx="1.4" fill="currentColor" />
+                <rect x="14" y="5" width="4" height="14" rx="1.4" fill="currentColor" />
+            </symbol>
+            <symbol id="i-play" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M7 4.8v14.4a1 1 0 001.5.9l11.6-7.2a1 1 0 000-1.8L8.5 3.9A1 1 0 007 4.8z" />
+            </symbol>
+            <symbol id="i-flip" viewBox="0 0 24 24">
+                <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    d="M20.5 12a8.5 8.5 0 01-14.6 5.9M3.5 12A8.5 8.5 0 0118.1 6.1M18.5 2.5v4h-4M5.5 21.5v-4h4" />
+            </symbol>
+            <symbol id="i-close" viewBox="0 0 24 24">
+                <path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
+                    d="M6 6l12 12M18 6L6 18" />
+            </symbol>
+            <symbol id="i-chev-up" viewBox="0 0 24 24">
+                <path fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"
+                    stroke-linejoin="round" d="M6 14.5l6-6 6 6" />
+            </symbol>
+            <symbol id="i-chev-down" viewBox="0 0 24 24">
+                <path fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"
+                    stroke-linejoin="round" d="M6 9.5l6 6 6-6" />
+            </symbol>
+            <symbol id="i-inf" viewBox="0 0 24 14">
+                <path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
+                    d="M12 7c-2-3-3.6-4.8-6-4.8a4.8 4.8 0 000 9.6c2.4 0 4-1.8 6-4.8zm0 0c2 3 3.6 4.8 6 4.8a4.8 4.8 0 000-9.6c-2.4 0-4 1.8-6 4.8z" />
+            </symbol>
+        </defs>
+    </svg>
+
+    <!-- Fondo reactivo al sonido -->
+    <div id="audio-reactive-bg" class="audio-reactive-bg"></div>
+    <div class="stars-overlay"></div>
+
+    <!-- Costados luminosos + corazones flotando (parte de las fotos) -->
+    <div id="love-bg" class="love-bg hidden">
+        <div class="side-glow side-left"></div>
+        <div class="side-glow side-right"></div>
+        <div id="hearts-layer" class="hearts-layer"></div>
+    </div>
+
+    <!-- ================= SOBRE + CARTA ================= -->
+    <div id="envelope-screen" class="envelope-screen">
+        <div class="envelope-wrapper" id="envelope-wrapper">
+
+            <div class="inner-letter-paper paper-old" id="letter-paper">
+
+                <!-- Adelanto -->
+                <div class="letter-teaser" id="letter-teaser">
+                    <svg class="paper-icon">
+                        <use href="#i-letter" />
+                    </svg>
+                    <h3>Para Guada:</h3>
+                    <p>Te escribo porque me duele mucho lo que pasó y quiero que sepas cuánto lo siento.</p>
+                </div>
+
+                <!-- Contenido completo -->
+                <div class="letter-full" id="letter-full">
+                    <svg class="paper-icon">
+                        <use href="#i-letter" />
+                    </svg>
+                    <h2 class="letter-title">Perdoname, mi amor</h2>
+
+                    <p class="letter-text">
+                        Me pediste una canción y me demoré mucho, después me diste pistas queriendo jugar conmigo y
+                        confundí el tema con otro y subí la equivocada. Sé que no te di la importancia que merecés, y
+                        eso me duele, porque vos
+                        sos lo más valioso que tengo.
+                    </p>
+
+                    <div class="quantify-box">
+                        <div class="quantify-row">
+                            <span class="quantify-label">Cuánto lo siento y te amo:</span>
+                            <strong id="percent-number" class="percent-number">0%</strong>
+                        </div>
+                        <div class="progress-track">
+                            <div id="progress-fill" class="progress-fill"></div>
+                        </div>
+                    </div>
+
+                    <p class="letter-text small">
+                        Quiero que estes bien y puedas disfrutar esto echo con mucho amor.
+                    </p>
+
+                    <h3 class="ask-title">¿Me perdonás, mi vida?</h3>
+
+                    <div class="buttons-container" id="buttons-container">
+                        <button id="btn-yes" class="btn btn-yes"><svg class="btn-ic">
+                                <use href="#i-heart" />
+                            </svg>¡Sí, te
+                            perdono!</button>
+                        <button id="btn-no" class="btn btn-no">No</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mitades del sobre -->
+            <div class="env-half env-left" id="env-left">
+                <div class="env-flap-lines"></div>
+            </div>
+            <div class="env-half env-right" id="env-right">
+                <div class="env-flap-lines"></div>
+            </div>
+
+            <!-- Sello central -->
+            <div class="wax-seal" id="wax-seal">
+                <svg class="seal-heart">
+                    <use href="#i-heart" />
+                </svg>
+                <div class="drag-hand">
+                    <svg>
+                        <use href="#i-chev-up" />
+                    </svg>
+                    <svg>
+                        <use href="#i-chev-down" />
+                    </svg>
+                </div>
+            </div>
+
+            <div class="drag-guide" id="drag-guide">
+                <span>Deslizá hacia arriba o abajo para abrirlo </span>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ================= PARTE 2: HOLOGRAMA + MÚSICA ================= -->
+    <section id="stage-2" class="viewport-stage hidden">
+
+        <header class="holo-header">
+            <h1 class="lovely-song-title">!Una linda canción para la mujer que Amo¡</h1>
+            <p class="tap-photo-hint"><svg class="hint-ic">
+                    <use href="#i-spark" />
+                </svg> Eres lo más importante para mí <svg class="hint-ic">
+                    <use href="#i-spark" />
+                </svg></p>
+        </header>
+
+        <div class="hologram-stage" id="hologram-stage">
+            <div class="sound-waves">
+                <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+
+            <div class="hologram-beam" id="hologram-beam"></div>
+
+            <div class="hologram-carousel" id="hologram-carousel">
+
+                <!-- FOTO 1 (Vertical - ella de suéter azul) -->
+                <div class="holo-item" style="--i: 0;" data-img="./img/WhatsApp Image 2026-10-28 at 12.20.40.jpeg"
+                    data-orient="vertical" data-title="Esa carita hermosa"
+                    data-text="Incluso cuando hacés puchero o te enojás conmigo seguís siendo la mujer más linda del mundo. Quiero ver esa carita tuya con tu linda sonrisa, todos los días.">
+                    <img src="./img/WhatsApp Image 2026-10-28 at 12.20.40.jpeg" alt="Foto 1">
+                    <span class="holo-tag"><svg>
+                            <use href="#i-heart" />
+                        </svg></span>
+                </div>
+
+                <!-- FOTO 2 (Vertical - nariz con nariz) -->
+                <div class="holo-item" style="--i: 1;" data-img="./img/WhatsApp Image 2026-10-27 at 23.20.30.jpg"
+                    data-orient="vertical" data-title="Mirame así siempre"
+                    data-text="Como dice la cacnion: Tenerte así de cerquita y ver cómo me mirás y me sonreís es mi lugar seguro en el mundo. Y nada es igual desde que estás en mi vida.">
+                    <img src=" ./img/WhatsApp Image 2026-10-27 at 23.20.30.jpeg" alt="Foto 2">
+                    <span class="holo-tag"><svg>
+                            <use href="#i-heart" />
+                        </svg></span>
+                </div>
+
+                <!-- FOTO 3 (Horizontal - abrazados adentro) -->
+                <div class="holo-item" style="--i: 2;" data-img="./img/WhatsApp Image 2026-10-27 at 23.44.22.jpeg"
+                    data-orient="horizontal" data-title="Mi lugar favorito"
+                    data-text="No te cambio por nada del mundo, Guada. Todo lo que soy y todo lo que hago quiero que sea para hacerte muy feliz.">
+                    <img src="./img/WhatsApp Image 2026-10-27 at 23.44.22.jpeg" alt="Foto 3">
+                    <span class="holo-tag"><svg>
+                            <use href="#i-heart" />
+                        </svg></span>
+                </div>
+
+                <!-- FOTO 4 (Horizontal - afuera de noche) -->
+                <div class="holo-item" style="--i: 3;" data-img="./img/WhatsApp Image 2026-10-27 at 23.54.54.jpeg"
+                    data-orient="horizontal" data-title="Por mil momentos más juntos"
+                    data-text="Cada salida, cada risa y cada noche que tuvimos y tendremos me confirma que sos el amor de mi vida. Te amo con todo mi corazón. ">
+
+                    <img src="./img/WhatsApp Image 2026-10-27 at 23.54.54.jpeg" alt="Foto 4">
+                    <span class="holo-tag"><svg>
+                            <use href="#i-heart" />
+                        </svg></span>
+                </div>
+
+            </div>
+
+            <div class="projector-base">
+                <div class="projector-lens"></div>
+            </div>
+        </div>
+
+        <!-- Reproductor -->
+        <div class="mini-player">
+            <div class="disc-icon spinning" id="disc-icon"><svg>
+                    <use href="#i-note" />
+                </svg></div>
+            <div class="track-info">
+                <strong>Damiano David — Dedicada a Guada</strong>
+                <span>Born With a Broken Heart</span>
+            </div>
+            <button id="btn-toggle-audio" class="btn-audio" aria-label="Pausar o reproducir">
+                <svg id="audio-ic">
+                    <use href="#i-pause" />
+                </svg>
+            </button>
+            <!-- Guardá la canción en esta carpeta con el nombre: cancionDavid.mp3 -->
+            <audio id="bg-music" loop>
+                <source src="cancionDavid.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+        <!-- Mensajito pequeño y sutil debajo del reproductor -->
+        <p class="secret-pardon-msg">Gracias por perdonarme MI AMOR, no vale cambiar de opinión ya me perdonaste BB ehh
+            le diste al
+            botón.</p>
+
+    </section>
+
+
+    <!-- ================= FOTO AMPLIADA (se expande hacia adelante) ================= -->
+    <div id="photo-modal" class="photo-modal hidden">
+        <div class="flip-card-container" id="flip-card-container">
+            <button id="btn-close-modal" class="btn-close-modal" aria-label="Cerrar"><svg>
+                    <use href="#i-close" />
+                </svg></button>
+
+            <div id="flip-card-inner" class="flip-card-inner">
+                <div class="flip-face flip-front" id="flip-front-face">
+                    <!-- Fondo borroso para cuando la foto es horizontal y que no queden bordes vacíos feos -->
+                    <div class="modal-img-backdrop" id="modal-img-backdrop"></div>
+                    <img id="modal-img" src="" alt="Foto ampliada">
+                    <button id="btn-flip-to-back" class="corner-flip-btn">
+                        <span>Leer detrás</span><svg>
+                            <use href="#i-flip" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="flip-face flip-back paper-old">
+                    <div class="back-paper">
+                        <svg class="paper-icon">
+                            <use href="#i-letter" />
+                        </svg>
+                        <h3 id="modal-title">Mi amor</h3>
+                        <p id="modal-text"></p>
+                        <span class="signature-mini">Con todo mi amor</span>
+                    </div>
+                    <button id="btn-flip-to-front" class="corner-flip-btn">
+                        <svg>
+                            <use href="#i-flip" />
+                        </svg><span>Ver foto</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

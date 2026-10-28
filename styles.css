@@ -1,0 +1,948 @@
+:root {
+    --bg-dark: #12040e;
+    --pink-hot: #ff2e93;
+    --pink-pastel: #ff85c1;
+    --pink-soft: #ffd6e8;
+    --crimson-env: #800016;
+    --crimson-lines: #47000b;
+    --ink: #4a2a1a;
+    --wine: #8f1239;
+    --beat: 0;
+    /* lo actualiza el JS según el volumen de la música (0 a 1) */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+svg {
+    display: inline-block;
+}
+
+body {
+    width: 100vw;
+    height: 100dvh;
+    overflow: hidden;
+    background-color: var(--bg-dark);
+    color: #fff;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ================= FONDO QUE LATE CON LA MÚSICA ================= */
+.audio-reactive-bg {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(255, 46, 147, 0.34), rgba(130, 20, 80, 0.18) 50%, #0c0208 92%);
+    z-index: 0;
+    pointer-events: none;
+    opacity: calc(0.55 + var(--beat) * 0.45);
+    filter: brightness(calc(1 + var(--beat) * 0.9));
+    will-change: transform, opacity, filter;
+}
+
+.stars-overlay {
+    position: fixed;
+    inset: 0;
+    background-image:
+        radial-gradient(2px 2px at 50px 70px, #ff85c1, transparent),
+        radial-gradient(2.5px 2.5px at 180px 220px, #ffd6e8, transparent),
+        radial-gradient(2px 2px at 290px 120px, #ff2e93, transparent);
+    background-size: 320px 320px;
+    opacity: 0.55;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.love-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    overflow: hidden;
+    animation: fadeIn 1.2s ease both;
+}
+
+.side-glow {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 40vw;
+    opacity: calc(0.5 + var(--beat) * 0.5);
+    filter: blur(6px) brightness(calc(1 + var(--beat) * 1.1));
+}
+
+.side-left {
+    left: 0;
+    background: radial-gradient(ellipse at 0% 55%, rgba(255, 46, 147, 0.5), rgba(160, 30, 100, 0.2) 50%, transparent 76%);
+}
+
+.side-right {
+    right: 0;
+    background: radial-gradient(ellipse at 100% 45%, rgba(255, 133, 193, 0.46), rgba(160, 30, 100, 0.2) 50%, transparent 76%);
+}
+
+.hearts-layer {
+    position: absolute;
+    inset: 0;
+}
+
+.float-heart {
+    position: absolute;
+    bottom: -40px;
+    opacity: 0;
+    color: var(--pink-pastel);
+    filter: drop-shadow(0 0 7px rgba(255, 46, 147, 0.9));
+    animation: floatUp linear infinite;
+}
+
+.float-heart svg {
+    width: 100%;
+    height: 100%;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) translateX(0) rotate(-12deg);
+        opacity: 0;
+    }
+
+    12% {
+        opacity: var(--op, 0.7);
+    }
+
+    50% {
+        transform: translateY(-55vh) translateX(var(--sway, 18px)) rotate(12deg);
+    }
+
+    88% {
+        opacity: var(--op, 0.7);
+    }
+
+    100% {
+        transform: translateY(-112vh) translateX(calc(var(--sway, 18px) * -1)) rotate(-10deg);
+        opacity: 0;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+/* ================= SOBRE ================= */
+.envelope-screen {
+    position: fixed;
+    inset: 0;
+    background: #14020a;
+    z-index: 60;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 18px;
+    touch-action: none;
+    overflow: hidden;
+    transition: opacity 0.5s ease, background-color 0.9s ease;
+}
+
+.envelope-screen.opened {
+    background-color: transparent;
+    touch-action: pan-y;
+    overflow-y: auto;
+}
+
+.envelope-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 440px;
+    height: 295px;
+    transition: height 0.7s cubic-bezier(0.4, 0.1, 0.2, 1);
+    margin: auto;
+}
+
+.envelope-wrapper.settled {
+    height: auto;
+}
+
+/* ===== Papel antiguo (carta y reverso de las fotos) ===== */
+.paper-old {
+    background-color: #f1deb6;
+    background-image:
+        radial-gradient(ellipse at 18% 12%, rgba(255, 249, 228, 0.85), transparent 55%),
+        radial-gradient(ellipse at 90% 92%, rgba(168, 108, 50, 0.28), transparent 55%),
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .42  0 0 0 0 .27  0 0 0 0 .1  0 0 0 .24 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>"),
+        linear-gradient(165deg, #f7e9c9 0%, #ecd5a5 60%, #e2c58d 100%);
+    box-shadow:
+        inset 0 0 38px rgba(140, 86, 36, 0.38),
+        inset 0 0 6px rgba(120, 70, 30, 0.35);
+}
+
+.inner-letter-paper {
+    position: absolute;
+    inset: 12px;
+    border-radius: 6px;
+    padding: 30px 24px;
+    text-align: center;
+    color: var(--ink);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    outline: 1px solid rgba(120, 70, 30, 0.25);
+    outline-offset: -8px;
+    filter: drop-shadow(0 15px 28px rgba(0, 0, 0, 0.85));
+}
+
+.envelope-wrapper.settled .inner-letter-paper {
+    position: relative;
+    inset: auto;
+    margin: 12px 0;
+}
+
+.paper-icon {
+    width: 44px;
+    height: 44px;
+    color: #7a4a26;
+    margin-bottom: 4px;
+}
+
+.inner-letter-paper h3 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.95rem;
+    color: var(--wine);
+    margin-bottom: 8px;
+}
+
+.inner-letter-paper p {
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: var(--ink);
+}
+
+.letter-teaser {
+    transition: opacity 0.55s ease;
+}
+
+.letter-teaser.fade-out {
+    opacity: 0;
+}
+
+.letter-full {
+    display: none;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    flex-direction: column;
+    align-items: center;
+}
+
+.letter-full.show {
+    opacity: 1;
+}
+
+.letter-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.15rem;
+    color: var(--wine);
+    margin-bottom: 8px;
+    line-height: 1.1;
+}
+
+.letter-text {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--ink);
+}
+
+.letter-text.small {
+    font-size: 0.85rem;
+    font-style: italic;
+    margin-top: 2px;
+}
+
+/* Barra: comienzo casi negro -> vino -> rosa */
+.quantify-box {
+    width: 100%;
+    background: rgba(255, 244, 218, 0.45);
+    border: 1px solid rgba(150, 100, 50, 0.4);
+    border-radius: 14px;
+    padding: 12px 14px;
+    margin: 14px 0 10px;
+}
+
+.quantify-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px 8px;
+    margin-bottom: 8px;
+}
+
+.quantify-label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #6b3a1f;
+    text-align: left;
+}
+
+.percent-number {
+    font-size: 1.18rem;
+    font-weight: 800;
+    color: #b0124f;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.percent-number svg {
+    width: 26px;
+    height: 16px;
+}
+
+/* Estilo para el monito y carita triste a la derecha del infinito */
+.inf-emotes {
+    font-size: 1.15rem;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    margin-left: 2px;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15));
+    animation: emotePulse 1.6s ease-in-out infinite alternate;
+}
+
+@keyframes emotePulse {
+    from {
+        transform: scale(0.95) translateY(0);
+    }
+
+    to {
+        transform: scale(1.08) translateY(-2px);
+    }
+}
+
+.progress-track {
+    width: 100%;
+    height: 16px;
+    background: #e6cd9f;
+    border-radius: 50px;
+    overflow: hidden;
+    border: 1px solid #b98f54;
+    padding: 2px;
+    box-shadow: inset 0 1px 3px rgba(90, 50, 20, 0.35);
+}
+
+.progress-fill {
+    width: 0%;
+    height: 100%;
+    border-radius: 50px;
+    background: linear-gradient(90deg, #12020a 0%, #3b0620 18%, #a3004a 50%, #ff2e93 80%, #ff85c1 100%);
+    background-size: 100% 100%;
+    box-shadow: 0 0 10px rgba(255, 46, 147, 0.55);
+    transition: width 0.08s linear;
+}
+
+.ask-title {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-size: 1.12rem !important;
+    font-weight: 800;
+    color: #3d2010 !important;
+    margin: 12px 0 10px !important;
+}
+
+/* Botones */
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    min-height: 70px;
+    position: relative;
+    width: 100%;
+}
+
+.btn {
+    border: none;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-family: inherit;
+    font-size: 0.94rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), font-size 0.25s ease, padding 0.25s ease;
+}
+
+.btn-yes {
+    background: linear-gradient(135deg, #e0185f, #ff4f93);
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(200, 20, 90, 0.5);
+    z-index: 5;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-ic {
+    width: 16px;
+    height: 16px;
+}
+
+.btn-no {
+    background: rgba(120, 70, 30, 0.14);
+    color: #6b3a1f;
+    border: 1px solid rgba(120, 70, 30, 0.4);
+    z-index: 200;
+    white-space: nowrap;
+}
+
+/* Mitades del sobre */
+.env-half {
+    position: absolute;
+    inset: 0;
+    background: var(--crimson-env);
+    border: 12px solid #f0dcb5;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.8);
+    z-index: 3;
+    will-change: transform;
+    transition: transform 0.08s linear, opacity 0.35s ease;
+}
+
+.env-flap-lines {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(31deg, transparent 48.5%, var(--crimson-lines) 49%, var(--crimson-lines) 51%, transparent 51.5%),
+        linear-gradient(-31deg, transparent 48.5%, var(--crimson-lines) 49%, var(--crimson-lines) 51%, transparent 51.5%);
+}
+
+.env-left {
+    clip-path: polygon(0% 0%, 51% 0%, 48% 12%, 52% 24%, 47% 37%, 51% 50%, 46% 63%, 50% 76%, 47% 89%, 51% 100%, 0% 100%);
+    transform-origin: bottom left;
+}
+
+.env-right {
+    clip-path: polygon(51% 0%, 100% 0%, 100% 100%, 51% 100%, 47% 89%, 50% 76%, 46% 63%, 51% 50%, 47% 37%, 52% 24%, 48% 12%);
+    transform-origin: bottom right;
+}
+
+.wax-seal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 84px;
+    height: 84px;
+    background: radial-gradient(circle at 30% 30%, #ff3b6b, #a8002c);
+    border-radius: 50%;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7), inset 0 0 12px rgba(255, 255, 255, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+    cursor: grab;
+}
+
+.seal-heart {
+    width: 38px;
+    height: 38px;
+    color: #4f0012;
+}
+
+/* Flechitas que invitan a deslizar */
+.drag-hand {
+    position: absolute;
+    right: -26px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    color: #ffd6e8;
+    animation: nudge 1.3s infinite ease-in-out alternate;
+}
+
+.drag-hand svg {
+    width: 22px;
+    height: 22px;
+    filter: drop-shadow(0 0 4px rgba(255, 46, 147, 0.8));
+}
+
+@keyframes nudge {
+    0% {
+        transform: translateY(-62%);
+    }
+
+    100% {
+        transform: translateY(-38%);
+    }
+}
+
+.drag-guide {
+    position: absolute;
+    bottom: -48px;
+    width: 100%;
+    text-align: center;
+    color: var(--pink-soft);
+    font-size: 0.88rem;
+    font-weight: 700;
+    transition: opacity 0.3s ease;
+}
+
+
+/* ================= PARTE 2: HOLOGRAMA ================= */
+.viewport-stage {
+    position: relative;
+    width: 100%;
+    max-width: 470px;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 14px;
+    z-index: 10;
+}
+
+.holo-header {
+    text-align: center;
+    margin-bottom: 6px;
+}
+
+.lovely-song-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.3rem;
+    color: var(--pink-pastel);
+    text-shadow: 0 0 15px rgba(255, 46, 147, 0.8);
+}
+
+.tap-photo-hint {
+    font-size: 0.76rem;
+    color: var(--pink-soft);
+}
+
+.hint-ic {
+    width: 10px;
+    height: 10px;
+    color: var(--pink-pastel);
+    vertical-align: -1px;
+}
+
+.hologram-stage {
+    position: relative;
+    width: 100%;
+    height: 385px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
+    cursor: grab;
+    touch-action: pan-y;
+}
+
+.sound-waves {
+    position: absolute;
+    top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    height: 26px;
+    z-index: 6;
+}
+
+.sound-waves span {
+    width: 4px;
+    height: 10px;
+    background: var(--pink-pastel);
+    border-radius: 10px;
+    box-shadow: 0 0 8px var(--pink-hot);
+    animation: waveBeat 0.65s infinite ease-in-out alternate;
+}
+
+.sound-waves span:nth-child(even) {
+    animation-delay: 0.2s;
+}
+
+.sound-waves span:nth-child(3n) {
+    animation-delay: 0.35s;
+}
+
+@keyframes waveBeat {
+    from {
+        height: 6px;
+        opacity: 0.5;
+    }
+
+    to {
+        height: 25px;
+        opacity: 1;
+    }
+}
+
+/* Haz de luz del proyector (brilla con la música) */
+.hologram-beam {
+    position: absolute;
+    bottom: 42px;
+    width: 340px;
+    height: 290px;
+    background: linear-gradient(to top,
+            rgba(255, 46, 147, 0.65) 0%,
+            rgba(255, 133, 193, 0.28) 55%,
+            transparent 100%);
+    clip-path: polygon(0% 0%, 100% 0%, 64% 100%, 36% 100%);
+    filter: blur(2px) brightness(calc(1 + var(--beat) * 0.9));
+    pointer-events: none;
+    z-index: 2;
+}
+
+.hologram-carousel {
+    position: relative;
+    width: 155px;
+    height: 195px;
+    transform-style: preserve-3d;
+    z-index: 5;
+    margin-bottom: 40px;
+}
+
+.holo-item {
+    position: absolute;
+    inset: 0;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 2px solid var(--pink-soft);
+    box-shadow: 0 0 25px rgba(255, 46, 147, 0.8);
+    background: #1a0412;
+    transform: rotateY(calc(var(--i) * 90deg)) translateZ(165px);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+
+.holo-item img {
+    width: 100%;
+    height: 158px;
+    object-fit: cover;
+    object-position: center 25%;
+    /* Centra bien las caras tanto en verticales como horizontales */
+    filter: brightness(1.06) contrast(1.04);
+    pointer-events: none;
+}
+
+.holo-tag {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    background: linear-gradient(90deg, #ff2e93, #ff85c1);
+}
+
+.holo-tag svg {
+    width: 15px;
+    height: 15px;
+}
+
+.projector-base {
+    position: absolute;
+    bottom: 14px;
+    width: 185px;
+    height: 46px;
+    background: linear-gradient(to bottom, #3b0d28, #0a0106);
+    border-radius: 50%;
+    border: 2px solid var(--pink-pastel);
+    box-shadow: 0 0 calc(26px + var(--beat) * 24px) rgba(255, 46, 147, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+}
+
+.projector-lens {
+    width: 96px;
+    height: 23px;
+    background: #fff0f7;
+    border-radius: 50%;
+    box-shadow: 0 0 calc(22px + var(--beat) * 20px) calc(8px + var(--beat) * 8px) var(--pink-hot);
+}
+
+.mini-player {
+    width: 100%;
+    background: rgba(255, 46, 147, 0.16);
+    border: 1px solid rgba(255, 133, 193, 0.45);
+    border-radius: 18px;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    backdrop-filter: blur(6px);
+}
+
+.disc-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--pink-hot);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.disc-icon svg {
+    width: 19px;
+    height: 19px;
+}
+
+.disc-icon.spinning {
+    animation: spin 4s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.track-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.track-info strong {
+    font-size: 0.82rem;
+    color: #fff;
+}
+
+.track-info span {
+    font-size: 0.74rem;
+    color: var(--pink-soft);
+    font-style: italic;
+}
+
+.btn-audio {
+    background: var(--pink-hot);
+    color: #fff;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-audio svg {
+    width: 17px;
+    height: 17px;
+}
+
+
+/* ================= FOTO AMPLIADA (ADAPTADA A VERTICAL Y HORIZONTAL) ================= */
+.photo-modal {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(120, 20, 75, 0.35), rgba(30, 5, 22, 0.5));
+    backdrop-filter: blur(6px) saturate(1.15);
+    -webkit-backdrop-filter: blur(6px) saturate(1.15);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    transition: opacity 0.45s ease;
+}
+
+.flip-card-container {
+    position: relative;
+    width: 100%;
+    max-width: 350px;
+    height: 440px;
+    perspective: 1200px;
+    will-change: transform, opacity;
+}
+
+.btn-close-modal {
+    position: absolute;
+    top: -14px;
+    right: -10px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    background: var(--pink-hot);
+    color: #fff;
+    cursor: pointer;
+    z-index: 20;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-close-modal svg {
+    width: 16px;
+    height: 16px;
+}
+
+.flip-card-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+.flip-card-inner.flipped {
+    transform: rotateY(180deg);
+}
+
+.flip-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 2.5px solid var(--pink-pastel);
+    box-shadow: 0 15px 40px rgba(255, 46, 147, 0.5);
+}
+
+.flip-front {
+    background: #1a0411;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Fondo difuminado de la misma foto cuando es horizontal para que quede estético y sin bordes negros */
+.modal-img-backdrop {
+    position: absolute;
+    inset: -20px;
+    background-size: cover;
+    background-position: center;
+    filter: blur(18px) brightness(0.48) saturate(1.3);
+    z-index: 1;
+}
+
+.flip-front img {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: object-fit 0.2s ease;
+}
+
+/* Si la foto es horizontal (las fotos 3 y 4), se muestra entera en el centro sin recortarles la cara */
+.flip-front.is-horizontal img {
+    object-fit: contain;
+    padding: 8px;
+    filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.7));
+}
+
+.flip-back {
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 26px 22px;
+    text-align: center;
+}
+
+.back-paper .paper-icon {
+    display: block;
+    margin: 0 auto 6px;
+}
+
+.back-paper h3 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.1rem;
+    color: var(--wine);
+    margin-bottom: 12px;
+}
+
+.back-paper p {
+    font-size: 0.97rem;
+    line-height: 1.6;
+    color: var(--ink);
+    margin-bottom: 18px;
+}
+
+.signature-mini {
+    display: block;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.35rem;
+    color: var(--wine);
+}
+
+.corner-flip-btn {
+    position: absolute;
+    bottom: 14px;
+    right: 14px;
+    background: linear-gradient(135deg, #e0185f, #ff5a9a);
+    color: #fff;
+    border: 1.5px solid #fff;
+    padding: 8px 15px;
+    border-radius: 50px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    z-index: 5;
+}
+
+.corner-flip-btn svg {
+    width: 15px;
+    height: 15px;
+}
+
+@media (max-width: 380px) {
+    .hologram-carousel {
+        width: 130px;
+        height: 170px;
+    }
+
+    .holo-item {
+        transform: rotateY(calc(var(--i) * 90deg)) translateZ(145px);
+    }
+
+    .holo-item img {
+        height: 136px;
+    }
+}
+
+/* Estilo para el mensajito sutil debajo del reproductor */
+.secret-pardon-msg {
+    margin-top: 8px;
+    font-size: 0.5rem;
+    color: rgba(255, 213, 232, 0.55);
+    text-align: center;
+    font-style: italic;
+    letter-spacing: 0.3px;
+    pointer-events: none;
+
+}
